@@ -286,34 +286,39 @@
                     cache: 'default', 
                 }
                 fetch(request,init).then(response => response).then(async (data) => {
-                let resjson = await data.json(); 
-                console.log(resjson);
-                actual_json = resjson;
-                complete_json.length += actual_json.results.length;
-                if(actual_json.hasOwnProperty('pages')){
-                    actual_json.pages.forEach( page => {
-                        if(page.to == "Siguiente"){
-                            document.getElementById("load_more").value = page.link;
-                        }
-                    })
-                }
-                if(next_page){
-                    table.updateOrAddData(actual_json.results); 
-                }else{
-                    if(document.getElementById('updater').checked){
-                        table.updateOrAddData(actual_json.results);
-                    }else{
-                        table
-                            .setData(actual_json.results)
-                            .then(async()=>{
-                            }).catch(e => console.log); 
+                    let resjson = await data.json(); 
+                    console.log(resjson);
+                    actual_json = resjson;
+                    if(actual_json.hasOwnProperty('pages')){
+                        actual_json.pages.forEach( page => {
+                            if(page.to == "Siguiente"){
+                                document.getElementById("load_more").value = page.link;
+                            }
+                        })
                     }
-                }
+                    if(actual_json.hasOwnProperty('error')){
+                        if(actual.json.error.status == 404){
+                            alert("No se encontraron resultados");
+                        }
+                        return false;
+                    }
+                    if(next_page){
+                        table.updateOrAddData(actual_json.results); 
+                    }else{
+                        if(document.getElementById('updater').checked){
+                            table.updateOrAddData(actual_json.results);
+                        }else{
+                            table
+                                .setData(actual_json.results)
+                                .then(async()=>{
+                                }).catch(e => console.log); 
+                        }
+                    }
                 
                 
                 /* data.json().then() */
                 }).catch(e=>{
-                alert("Un error ocurrio: "+e);
+                alert("Elementos no disponibles: No se encontraron Resultados");
                 
                 });
             }
