@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<style>
+    .hide{
+        display: none;
+    }
+</style>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>abctelefonos.es webscrap to json/excel/csv convereter data</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/tabulator.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Abctelefonos.es Webscrap <br>to json/excel/csv Convereter Data</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="enterprise">Buscar Empresa/Institucion</a>
+                            
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="peer">Buscar Persona</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="phone">Buscar por Telefono</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="location">Buscar por Direccion</a>
+                        </li>
+                    </ul>
+                    <div class="hide">
+                        <input type="radio" name="selectedOp" value="comercio" id="enterprise_radio" checked>
+                        <input type="radio" name="selectedOp" value="persona" id="peer_radio">   
+                        <input type="radio" name="selectedOp" value="telefono" id="phone_radio">  
+                        <input type="radio" name="selectedOp" value="direccion" id="location_radio">      
+                    </div>
+                    <div class="hide">
+                        <input type="radio" name="selectedCountry" value="all" id="" checked>
+                        <input type="radio" name="selectedCountry" value="argentina" id="">   
+                        <input type="radio" name="selectedCountry" value="brasil" id="">  
+                        <input type="radio" name="selectedCountry" value="chile" id="">      
+                        <input type="radio" name="selectedCountry" value="costarica" id="">
+                        <input type="radio" name="selectedCountry" value="espana" id="">   
+                        <input type="radio" name="selectedCountry" value="usa" id="">   
+                        <input type="radio" name="selectedCountry" value="mexico" id="">       
+                        <input type="radio" name="selectedCountry" value="venezuela" id="">      
+                    </div>
+                    <div>
+                        <div class="dropdown">
+                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Pais
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#" onclick="change_country_to('all')">Todos</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="change_country_to('argentina')">Argentina</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="change_country_to('brasil')">Brasil</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="change_country_to('chile')">Chile</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="change_country_to('costarica')">Costa Rica</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="change_country_to('espana')">España</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="change_country_to('usa')">Estados Unidos de America</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="change_country_to('mexico')">Mexico</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="change_country_to('venezuela')">Venezuela</a></li>
+                            </ul>
+                          </div>
+                    </div> 
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" id="q" aria-label="ej: pepe, juan, pizzeria, topocho">
+                        <input class="form-control me-2" type="search" placeholder="Search" id="l" aria-label="Ciudad o Region">
+                        <div class="form-check ms-5 me-5">
+                          <input type="checkbox" class="form-check-input" name="updater" id="updater" value="">
+                          <label class="form-check-label" style="color:white" for="">¿Añadir a Data Mostrada?</label>
+                        </div>
+                        <button class="btn btn-outline-light" type="button" id="search">Buscar Ya!</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="mt-5 mb-5 px-2 ">
+            <table class="table table-bordered table-bordered table-responsive">
+                <!-- <thead class="thead-default">
+                    <tr>
+                        <th>Hola</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td scope="row"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody> -->
+            </table>
+        </div>
+        <div> <!-- Table -->
+            <div>
+                <button id="download-csv">Download CSV</button>
+                <button id="download-json">Download JSON</button>
+                <button id="download-xlsx">Download XLSX</button>
+                <button id="download-pdf">Download PDF</button>
+                <button id="download-html">Download HTML</button>
+            </div>
+            <div id="example-table" class="mr-5 ml-5 table table-bordered table-bordered table-responsive"></div>
+            <button class="hide btn btn-primary" value="" id="load_more">Cargar Mas</button>
+        </div> <!-- End of Table-->
+        
+        <!-- Bootstrap JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
+        <script type="text/javascript" src="js/tabulator.min.js"></script>
+        <script type="text/javascript" src="js/xlsx.full.min.js"></script>
+        <script src="js/jspdf.umd.min.js"></script>
+        <script src="js/jspdf.plugin.autotable.min.js"></script>
+        <script type="text/javascript">
+            let actual_json, complete_json = {};
+            complete_json.length = 0;
+            //Build Tabulator
+            let table = new Tabulator("#example-table", {
+                height: "500px",
+                columns:[
+                    {title:"Nombre", field:"name", width: "20%"},
+                    {title:"Telefono", field:"phone", width: "20%"},
+                    {title:"Calle", field:"street", width: "20%"},
+                    {title:"Localidad/Region", field:"localty", width: "20%"},
+                    {title:"Pais", field:"country", width: "20%"},
+                    /*{title:"Date Of Birth", field:"dob", hozAlign:"center", sorter:"date"},
+                    {title:"Driver", field:"car", hozAlign:"center", formatter:"tickCross"},*/
+                ],
+            });
+            //trigger download of data.csv file
+            document.getElementById("download-csv").addEventListener("click", function(){
+                table.download("csv", "abcscrap.csv");
+            });
+
+            //trigger download of data.json file
+            document.getElementById("download-json").addEventListener("click", function(){
+                table.download("json", "abcscrap.json");
+            });
+
+            //trigger download of data.xlsx file
+            document.getElementById("download-xlsx").addEventListener("click", function(){
+                table.download("xlsx", "abcscrap.xlsx", {sheetName:"abcscrap"});
+            });
+
+            //trigger download of data.pdf file
+            document.getElementById("download-pdf").addEventListener("click", function(){
+                table.download("pdf", "abcscrap.pdf", {
+                    orientation:"portrait", //set page orientation to portrait
+                    title:"BUSQUEDA ABC A PDF", //add title to report
+                });
+            });
+
+            //trigger download of data.html file
+            document.getElementById("download-html").addEventListener("click", function(){
+                table.download("html", "abcscrap.html", {style:true});
+            });
+            
+            document.getElementById('peer').addEventListener('click', ()=>{
+                console.log("peer is selected");
+                let radio_node_list = document.getElementsByName("selectedOp");
+                radio_node_list.forEach(radio_node => {
+                    if(radio_node.value == 'persona'){
+                        radio_node.checked = true;
+                    }else{
+                        radio_node.checked = false;
+                    }
+                });
+    
+            });
+            document.getElementById('enterprise').addEventListener('click', ()=>{
+                console.log("enterprise is selected");
+                let radio_node_list = document.getElementsByName("selectedOp");
+                radio_node_list.forEach(radio_node => {
+                    if(radio_node.value == 'comercio'){
+                        radio_node.checked = true;
+                    }else{
+                        radio_node.checked = false;
+                    }
+                });
+    
+            });
+            document.getElementById('phone').addEventListener('click', ()=>{
+                console.log("phone is selected");
+                let radio_node_list = document.getElementsByName("selectedOp");
+                radio_node_list.forEach(radio_node => {
+                    if(radio_node.value == 'telefono'){
+                        radio_node.checked = true;
+                    }else{
+                        radio_node.checked = false;
+                    }
+                });
+    
+            });
+            document.getElementById('location').addEventListener('click', ()=>{
+                console.log("location is selected");
+                let radio_node_list = document.getElementsByName("selectedOp");
+                radio_node_list.forEach(radio_node => {
+                    if(radio_node.value == 'direccion'){
+                        radio_node.checked = true;
+                    }else{
+                        radio_node.checked = false;
+                    }
+                });
+    
+            });
+
+            const change_country_to = (country) =>{
+                let radio_node_list = document.getElementsByName("selectedCountry");
+                radio_node_list.forEach(radio_node => {
+                    if(radio_node.value == country ){
+                        radio_node.checked = true;
+                        console.log(`country changed to ${country}`);
+                    }else{
+                        radio_node.checked = false;
+                    }
+                });
+            }; 
+            document.getElementById("search").addEventListener('click', ()=>{
+                
+                let q = document.getElementById("q").value,
+                l = document.getElementById("l").value,
+                t,
+                country;
+
+                document.getElementsByName("selectedOp").forEach( node =>{
+                    if(node.checked){
+                        t = node.value
+                    } 
+                })
+                document.getElementsByName("selectedCountry").forEach( node =>{
+                    if(node.checked){
+                        country = node.value
+                    } 
+                })
+                console.log(`search?q=${q}&l=${l}&t=${t}&country=${country}`);
+                let query = `/search?q=${q}&l=${l}&t=${t}&country=${country}`;
+                getData(query);
+            })
+            document.getElementById("load_more").addEventListener('click', ()=>{
+                getData(document.getElementById("load_more").value,true);
+            });
+            /*Funcion de consumo de API/WEB SCRAP con Express.js y Scrap It */ 
+            function getData(query,next_page = false){
+                let url_requested = '';
+                if(next_page){
+                    url_requested = window.location.origin; 
+                }else{
+                    url_requested = window.location.origin+query;
+                }
+                let request = new Request(url_requested);
+                let header = new Headers(); 
+                header.append('Content-Type','application/json');
+                //'Content-Type': 'application/json'
+                //let data = JSON.parse(`{"data":`+jsonEnc+`,"data1":`+jsonDetSede+`}`);
+                let init = (next_page) ? {
+                    method:  "POST",
+                    headers: header,
+                    mode: 'cors',
+                    cache: 'default', 
+                    body: JSON.stringify({"to_page":query}), 
+                } 
+                :
+                {
+                    method: "GET",
+                    headers: header,
+                    mode: 'cors',
+                    cache: 'default', 
+                }
+                fetch(request,init).then(response => response).then(async (data) => {
+                let resjson = await data.json(); 
+                console.log(resjson);
+                actual_json = resjson;
+                complete_json.length += actual_json.results.length;
+                if(actual_json.hasOwnProperty('pages')){
+                    actual_json.pages.forEach( page => {
+                        if(page.to == "Siguiente"){
+                            document.getElementById("load_more").value = page.link;
+                        }
+                    })
+                }
+                if(next_page){
+                    table.updateOrAddData(actual_json.results); 
+                }else{
+                    if(document.getElementById('updater').checked){
+                        table.updateOrAddData(actual_json.results);
+                    }else{
+                        table
+                            .setData(actual_json.results)
+                            .then(async()=>{
+                            }).catch(e => console.log); 
+                    }
+                }
+                
+                
+                /* data.json().then() */
+                }).catch(e=>{
+                alert("Un error ocurrio: "+e);
+                
+                });
+            }
+        </script>
+    </body>
+    
+</html>
