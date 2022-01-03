@@ -62,4 +62,8 @@ app.post('/',async(req, res)=>{
         }
     }); 
 /*La app inicializa en el Puerto 80 por defecto, cambiar en caso de querer usar otro */
-app.listen(80, 'localhost');
+
+const server = require('http').createServer(app);
+const port = process.env.PORT || 80;
+server.listen(port, () => console.log(`Listening on ${port}`));
+//app.listen(port, 'localhost');
