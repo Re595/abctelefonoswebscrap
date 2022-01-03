@@ -61,5 +61,5 @@ app.post('/',async(req, res)=>{
             return res.status(500).json({ error: error });
         }
     }); 
-/*La app inicializa en el Puerto 99 por defecto, cambiar en caso de querer usar otro */
-app.listen(99, 'localhost');
+/*La app inicializa en el Puerto 80 por defecto, cambiar en caso de querer usar otro */
+app.listen(80, 'localhost');
