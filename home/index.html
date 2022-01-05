@@ -90,14 +90,15 @@
         </nav>
         <div> <!-- Table -->
             <div>
-                <button id="download-csv">Download CSV</button>
-                <button id="download-json">Download JSON</button>
-                <button id="download-xlsx">Download XLSX</button>
-                <button id="download-pdf">Download PDF</button>
-                <button id="download-html">Download HTML</button>
+                <button class="btn btn-light" id="download-csv">Download CSV</button>
+                <button class="btn btn-light" id="download-json">Download JSON</button>
+                <button class="btn btn-light" id="download-xlsx">Download XLSX</button>
+                <button class="btn btn-light" id="download-pdf">Download PDF</button>
+                <button class="btn btn-light" id="download-html">Download HTML</button>
             </div>
             <div id="example-table" class="mr-5 ml-5 table table-bordered table-bordered table-responsive"></div>
             <button class="hide btn btn-primary" value="" id="load_more">Cargar Mas</button>
+            <button class="hide btn btn-warning white_color" value="" id="clear_localStorage">Limpiar Data Persistente</button>
         </div> <!-- End of Table-->
         
         <!-- Bootstrap JavaScript -->
@@ -110,6 +111,7 @@
         <script type="text/javascript">
             let actual_json, complete_json = {};
             complete_json.length = 0;
+            let data_global;
             //Build Tabulator
             let table = new Tabulator("#example-table", {
                 height: "500px",
@@ -122,7 +124,12 @@
                     /*{title:"Date Of Birth", field:"dob", hozAlign:"center", sorter:"date"},
                     {title:"Driver", field:"car", hozAlign:"center", formatter:"tickCross"},*/
                 ],
+                data: (localStorage.persistent_local_data !== undefined) ? JSON.parse(localStorage.persistent_local_data) : [], 
             });
+            /*if(localStorage.persistent_local_data !== undefined){
+                //table.updateOrAddData(JSON.parse(localStorage.persistent_local_data)); 
+                table.setData(JSON.parse(localStorage.persistent_local_data));
+            }*/
             //trigger download of data.csv file
             document.getElementById("download-csv").addEventListener("click", function(){
                 table.download("csv", "abcscrap.csv");
@@ -151,6 +158,9 @@
                 table.download("html", "abcscrap.html", {style:true});
             });
             
+            document.getElementById("clear_localStorage").addEventListener("click", function(){
+                localStorage.removeItem('persistent_local_data');  
+            });
             document.getElementById('peer').addEventListener('click', ()=>{
                 console.log("peer is selected");
                 let radio_node_list = document.getElementsByName("selectedOp");
@@ -281,17 +291,20 @@
                     }
                     if(next_page){
                         table.updateOrAddData(actual_json.results); 
+                        localStorage.setItem("persistent_local_data",JSON.stringify(table.getData())); 
                     }else{
                         if(document.getElementById('updater').checked){
                             table.updateOrAddData(actual_json.results);
+                            localStorage.setItem("persistent_local_data",JSON.stringify(table.getData())); 
                         }else{
                             table
                                 .setData(actual_json.results)
                                 .then(async()=>{
+                                    localStorage.setItem("persistent_local_data",JSON.stringify(table.getData())); 
                                 }).catch(e => console.log); 
                         }
                     }
-                
+                    
                 
                 /* data.json().then() */
                 }).catch(e=>{
