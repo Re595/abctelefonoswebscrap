@@ -17,7 +17,7 @@ _ES: probado por ultima vez en node 14.18.2 y npm 6.14.15_
 
 - **Route: get:// :query | "Use the query url format of abctelefonos.es to make the petition"**
 Code
-...
+```
 //query_url format: /search?q=Pepe&l=&t=comercio&country=all
 fetch('http://localhost/search?q=Pepe&l=&t=comercio&country=all',
         {
@@ -29,9 +29,9 @@ fetch('http://localhost/search?q=Pepe&l=&t=comercio&country=all',
             let resjson = await data.json();
             console.log(resjson)
         });
-...
+```
 Result
-...
+```
 js
 {
     "results": [
@@ -84,7 +84,7 @@ js
         }
     ]
 }
-...
+```
 - **[Route: post:// ]("Send through post the query_url string on the body in a 'to_page' identificaor ")**
 
 ```
