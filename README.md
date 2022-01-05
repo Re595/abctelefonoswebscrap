@@ -15,7 +15,76 @@ _ES: probado por ultima vez en node 14.18.2 y npm 6.14.15_
 
 ## Endpoints
 
-- **[Route: get:// :query]("Use the query url format of abctelefonos.es to make the petition")**
+- **Route: get:// :query | "Use the query url format of abctelefonos.es to make the petition"**
+Code
+...
+//query_url format: /search?q=Pepe&l=&t=comercio&country=all
+fetch('http://localhost/search?q=Pepe&l=&t=comercio&country=all',
+        {
+            method: "GET",
+            headers: new Headers(),
+            mode: 'cors',
+            cache: 'default', 
+        }.then(response => response).then( async data =>{
+            let resjson = await data.json();
+            console.log(resjson)
+        });
+...
+Result
+...
+js
+{
+    "results": [
+        {
+            "name": "Pepe",
+            "phone": "(011) 4781-0259",
+            "street": "Aguilar 2487",
+            "locality": "Capital Federal",
+            "country": "Argentina"
+        },
+        {
+            "name": "Astraldi Luis E",
+            "phone": "(011) 4781-9808",
+            "street": "Aguilar 2589 05 A",
+            "locality": "Capital Federal",
+            "country": "Argentina"
+        },
+        {
+            "name": "Pepe Piriz",
+            "phone": "(03482) 42-4936",
+            "street": "Calle 31 Jorge 143",
+            "locality": "Reconquista, Santa Fe",
+            "country": "Argentina"
+        },
+    ],
+    "pages": [
+        {
+            "to": "Siguiente",
+            "link": "/comercio/argentina/pepe/pag_2"
+        },
+        {
+            "to": "Siguiente",
+            "link": "/comercio/chile/pepe/pag_2"
+        },
+        {
+            "to": "Siguiente",
+            "link": "/comercio/espana/pepe/pag_2"
+        },
+        {
+            "to": "Siguiente",
+            "link": "/comercio/usa/pepe/pag_2"
+        },
+        {
+            "to": "Siguiente",
+            "link": "/comercio/mexico/pepe/pag_2"
+        },
+        {
+            "to": "Siguiente",
+            "link": "/comercio/venezuela/pepe/pag_2"
+        }
+    ]
+}
+...
 - **[Route: post:// ]("Send through post the query_url string on the body in a 'to_page' identificaor ")**
 
 ```
