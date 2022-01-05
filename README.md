@@ -146,7 +146,7 @@ js
 }
 ```
 **Route: get://home/index.html | "Access to the GUI Utility | Accede a la Utilidad con Interfaz Visual"**
-## Construido con 🛠️
+## Builded with | Construido con 🛠️
 
 _Menciona las herramientas que utilizaste para crear tu proyecto_
 
@@ -156,20 +156,11 @@ _Menciona las herramientas que utilizaste para crear tu proyecto_
 * [Tabulator](https://github.com/olifolkerd/tabulator) - Libreria para las tablas del index.html y su debida exportacion / Library for the tables and exporting the data
 
 
-## Autores ✒️
+## Made by | Autor ✒️
 
 * **Renato Galindo** - [Re595](https://github.com/Re595/)
 
 También puedes mirar la lista de todos los [contribuyentes](https://github.com/your/project/contributors) quíenes han participado en este proyecto. 
-
-## Expresiones de Gratitud 🎁
-
-* Comenta a otros sobre este proyecto 📢
-* Invita una cerveza 🍺 o un café ☕ a alguien del equipo. 
-* Da las gracias públicamente 🤓.
-* etc.
-
-
 
 ---
 ⌨️ con ❤️ por [Renato Galindo Re595](https://github.com/Re595/) 😎😎
