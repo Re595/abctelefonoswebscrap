@@ -160,7 +160,5 @@ _Menciona las herramientas que utilizaste para crear tu proyecto_
 
 * **Renato Galindo** - [Re595](https://github.com/Re595/)
 
-También puedes mirar la lista de todos los [contribuyentes](https://github.com/your/project/contributors) quíenes han participado en este proyecto. 
-
 ---
 ⌨️ con ❤️ por [Renato Galindo Re595](https://github.com/Re595/) 😎😎
