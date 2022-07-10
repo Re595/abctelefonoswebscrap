@@ -1,16 +1,19 @@
 # WebScrap to Abctelefonos.es / WebScrap a AbcTelefonos.es
 _EN: It's a simple way to convert searchable querys to AbcTelefonos.es to JSON, for consume it from any website_ 
+
 _ES: Es una simple herramienta que permite convertir los search query a AbcTelefonos.es en un JSON que puede ser consumido desde cualquier web_ 
 
 ## Getting Started | Comenzando 🚀
 
 _EN: just npm install to download the depedencies and node index.js to run it, make http request to localhost to test or just access to localhost/home/index.html for use the GUI_
-_ES: tan solo npm install para descargar las dependencias y usa node index.js para correrlo, haz peticiones a localhost para ir probando o accede a locahost/home/index.html para hacer uso de la GUI_
+
+_ES: tan solo npm install para descargar las dependencias y usa node index.js para correrlo, haz peticiones a localhost para ir probando o accede a locahost/home/index.html para hacer uso de la GUI. Para cambiar el puerto, hay que cambiar la variable de entorno PORT del entorno bash (PWS: $env:PORT = "puerto" ej $env:PORT = 81/ en cmd set PORT="puerto" ej: PORT=81  / en unix/linux terminal PORT="puerto" node index.js ej PORT:81 node index.js_
 
 
 ### Pre-requirements | Pre-requisitos 📋
 
 _EN: last test on node 14.18.2 and npm 6.14.15_
+
 _ES: probado por ultima vez en node 14.18.2 y npm 6.14.15_
 
 ## Endpoints
@@ -161,4 +164,4 @@ _Menciona las herramientas que utilizaste para crear tu proyecto_
 * **Renato Galindo** - [Re595](https://github.com/Re595/)
 
 ---
-⌨️ con ❤️ por [Renato Galindo Re595](https://github.com/Re595/) 😎😎
+⌨️ Hecho con ❤️ por [Renato Galindo Re595](https://github.com/Re595/) 😎😎
