@@ -1,6 +1,6 @@
 {
   "name": "abctelefonoswebscrap",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create easy json from extracted data from abctelefonos.com with the same search query URL of the page",
   "main": "index.js",
   "scripts": {

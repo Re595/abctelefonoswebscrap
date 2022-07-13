@@ -78,10 +78,12 @@
                     </div> 
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="ej: pepe, juan, pizzeria, topocho" id="q" aria-label="ej: pepe, juan, pizzeria, topocho">
-                        <input class="form-control me-2" type="search" placeholder="Ciudad o Region" id="l" aria-label="Ciudad o Region">
+                        <input class="form-control me-2" type="search" list="ubicationList" placeholder="Ciudad o Region" id="l" aria-label="Ciudad o Region">
+                        <datalist id="ubicationList">
+                        </datalist>
                         <div class="form-check ms-5 me-5">
                           <input type="checkbox" class="form-check-input" name="updater" id="updater" value="">
-                          <label class="form-check-label" style="color:white" for="">¿Añadir a Data Mostrada?</label>
+                          <label class="form-check-label" style="color:white" for="updater"">¿Añadir a Data Mostrada?</label>
                         </div>
                         <button class="btn btn-outline-light" type="button" id="search">Buscar Ya!</button>
                     </form>
@@ -221,6 +223,37 @@
                     }
                 });
             }; 
+
+            document.getElementById("l").addEventListener("focusout", async ()=>{
+                const { value } = document.getElementById("l");  
+                let country;
+                document.getElementsByName("selectedCountry").forEach( node =>{
+                    if(node.checked){
+                        country = node.value
+                    } 
+                })
+                //debugger; 
+                let request = new Request(`${window.location.origin}/ubication?country=${country}&term=${value}`);
+                let header = new Headers(); 
+                let init =  {
+                    method: "GET",
+                    headers: header,
+                    mode: 'cors',
+                    cache: 'default', 
+                }; 
+                let data = await(await fetch(request,init)).json(); 
+                const list = document.getElementById("ubicationList"); 
+                while (list.firstChild) {
+                    list.removeChild(list.firstChild);
+                }
+                data.forEach( item => {
+                    let option = document.createElement('option'); 
+                    option.text = item;
+                    option.value = item; 
+                    list.appendChild(option); 
+                })
+
+            })
             document.getElementById("search").addEventListener('click', ()=>{
                 
                 let q = document.getElementById("q").value,
